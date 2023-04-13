@@ -1,6 +1,10 @@
 import crypto from 'crypto'
 
-const SECRET = 'SEAN-REST-API'
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+const SECRET = process.env.SECRET
 
 //定義了一個random函式，使用crypto.randomBytes()函式生成一個128位的隨機字串，並使用toString()方法轉換為Base64格式的字串返回。
 export const random = () => crypto.randomBytes(128).toString('base64')

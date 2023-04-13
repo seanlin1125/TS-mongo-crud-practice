@@ -1,6 +1,11 @@
 import express, { Request, Response } from 'express'
 
-import { deleteUserById, getUsers } from '../db/users'
+import {
+  deleteUserById,
+  getUserById,
+  getUsers,
+  updateUserById,
+} from '../db/users'
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -20,6 +25,25 @@ export const deleteUser = async (req: Request, res: Response) => {
     const deletedUser = await deleteUserById(id)
 
     return res.status(200).json(deletedUser)
+  } catch (error) {
+    console.log(error)
+    return res.sendStatus(400)
+  }
+}
+// updateUserById = (id: string, values: Record<string, any>) => UserModel.findByIdAndUpdate(id, values)
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const { username } = req.body
+    if (!username) {
+      return res.sendStatus(400)
+    }
+
+    await updateUserById(id, { username })
+
+    const user = await getUserById(id)
+
+    return res.status(200).json(user)
   } catch (error) {
     console.log(error)
     return res.sendStatus(400)

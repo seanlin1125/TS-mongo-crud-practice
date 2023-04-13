@@ -29,7 +29,7 @@ export const login = async (req: Request, res: Response) => {
       domain: 'localhost',
       path: '/',
     })
-    return res.status(200).json(user).end()
+    return res.status(200).json(user)
   } catch (error) {
     console.log(error)
     return res.sendStatus(400)
@@ -55,7 +55,7 @@ export const register = async (req: Request, res: Response) => {
         password: authentication(salt, password),
       },
     })
-    return res.status(200).json(user).end()
+    return res.status(200).json(user)
   } catch (error) {
     console.log(error)
     return res.sendStatus(400)
